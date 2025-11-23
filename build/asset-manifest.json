@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/battleship-ml-sim/static/css/main.d725351f.css",
+    "main.js": "/battleship-ml-sim/static/js/main.4704372d.js",
+    "index.html": "/battleship-ml-sim/index.html",
+    "main.d725351f.css.map": "/battleship-ml-sim/static/css/main.d725351f.css.map",
+    "main.4704372d.js.map": "/battleship-ml-sim/static/js/main.4704372d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d725351f.css",
+    "static/js/main.4704372d.js"
+  ]
+}

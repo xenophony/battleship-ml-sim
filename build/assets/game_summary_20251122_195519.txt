@@ -1,0 +1,105 @@
+================================================================================
+BATTLESHIP AGENT COMPARISON SUMMARY
+Generated: 2025-11-22 19:56:10
+Total Games: 5
+================================================================================
+
+Agent                Avg Turns    Avg Hits     Avg Efficiency  Best Game    Worst Game  
+--------------------------------------------------------------------------------
+HeuristicAgent       98.0         17.0         0.174           95           100         
+HitGradientBoostedAgent 54.2         17.0         0.322           41           65          
+LightGBMAgent        53.0         17.0         0.326           43           62          
+LogisticRegressionAgent 63.6         17.0         0.275           47           78          
+MLPAgent             71.8         17.0         0.250           49           100         
+QLearningAgent       99.6         17.0         0.171           98           100         
+RuleBasedAgent       96.6         17.0         0.176           93           100         
+SARSAAgent           72.8         17.0         0.243           55           100         
+
+================================================================================
+DETAILED GAME-BY-GAME RESULTS
+================================================================================
+
+
+Game 1:
+Agent                Turns      Hits       Efficiency
+--------------------------------------------------
+HeuristicAgent       99         17         0.172     
+HitGradientBoostedAgent 49         17         0.347     
+LightGBMAgent        50         17         0.340     
+LogisticRegressionAgent 63         17         0.270     
+MLPAgent             49         17         0.347     
+QLearningAgent       100        17         0.170     
+RuleBasedAgent       93         17         0.183     
+SARSAAgent           74         17         0.230     
+
+Game 2:
+Agent                Turns      Hits       Efficiency
+--------------------------------------------------
+HeuristicAgent       95         17         0.179     
+HitGradientBoostedAgent 56         17         0.304     
+LightGBMAgent        62         17         0.274     
+LogisticRegressionAgent 78         17         0.218     
+MLPAgent             70         17         0.243     
+QLearningAgent       100        17         0.170     
+RuleBasedAgent       97         17         0.175     
+SARSAAgent           100        17         0.170     
+
+Game 3:
+Agent                Turns      Hits       Efficiency
+--------------------------------------------------
+HeuristicAgent       100        17         0.170     
+HitGradientBoostedAgent 41         17         0.415     
+LightGBMAgent        43         17         0.395     
+LogisticRegressionAgent 47         17         0.362     
+MLPAgent             65         17         0.262     
+QLearningAgent       98         17         0.173     
+RuleBasedAgent       100        17         0.170     
+SARSAAgent           66         17         0.258     
+
+Game 4:
+Agent                Turns      Hits       Efficiency
+--------------------------------------------------
+HeuristicAgent       96         17         0.177     
+HitGradientBoostedAgent 65         17         0.262     
+LightGBMAgent        53         17         0.321     
+LogisticRegressionAgent 65         17         0.262     
+MLPAgent             100        17         0.170     
+QLearningAgent       100        17         0.170     
+RuleBasedAgent       97         17         0.175     
+SARSAAgent           55         17         0.309     
+
+Game 5:
+Agent                Turns      Hits       Efficiency
+--------------------------------------------------
+HeuristicAgent       100        17         0.170     
+HitGradientBoostedAgent 60         17         0.283     
+LightGBMAgent        57         17         0.298     
+LogisticRegressionAgent 65         17         0.262     
+MLPAgent             75         17         0.227     
+QLearningAgent       100        17         0.170     
+RuleBasedAgent       96         17         0.177     
+SARSAAgent           69         17         0.246     
+
+================================================================================
+PERFORMANCE RANKINGS
+================================================================================
+
+By Average Turns (Lower = Better):
+  1. LightGBMAgent: 53.0 turns
+  2. HitGradientBoostedAgent: 54.2 turns
+  3. LogisticRegressionAgent: 63.6 turns
+  4. MLPAgent: 71.8 turns
+  5. SARSAAgent: 72.8 turns
+  6. RuleBasedAgent: 96.6 turns
+  7. HeuristicAgent: 98.0 turns
+  8. QLearningAgent: 99.6 turns
+
+By Efficiency (Higher = Better):
+  1. LightGBMAgent: 0.326
+  2. HitGradientBoostedAgent: 0.322
+  3. LogisticRegressionAgent: 0.275
+  4. MLPAgent: 0.250
+  5. SARSAAgent: 0.243
+  6. RuleBasedAgent: 0.176
+  7. HeuristicAgent: 0.174
+  8. QLearningAgent: 0.171
