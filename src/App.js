@@ -27,7 +27,7 @@ function App() {
       for (let i = 1; i <= 10; i++) {
         const gameNum = String(i).padStart(3, '0');
         try {
-          const response = await fetch(`/assets/game_${gameNum}_boards_${timestamp}.json`);
+          const response = await fetch(`${process.env.PUBLIC_URL}/assets/game_${gameNum}_boards_${timestamp}.json`);
           if (response.ok) {
             const data = await response.json();
             gameFiles.push({ gameNum: i, data });
@@ -43,7 +43,7 @@ function App() {
       
       // Load summary
       try {
-        const summaryResponse = await fetch(`/assets/game_summary_${timestamp}.txt`);
+        const summaryResponse = await fetch(`${process.env.PUBLIC_URL}/assets/game_summary_${timestamp}.txt`);
         if (summaryResponse.ok) {
           const summary = await summaryResponse.text();
           setSummaryData(summary);
