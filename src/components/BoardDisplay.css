@@ -1,0 +1,128 @@
+.board-display {
+  background-color: #252526;
+  border: 1px solid #3c3c3c;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.board-display.finished {
+  border-color: #4ec9b0;
+}
+
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #3c3c3c;
+}
+
+.agent-name {
+  color: #4ec9b0;
+  font-weight: bold;
+  font-size: 1.1rem;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+.agent-status {
+  color: #858585;
+  font-size: 0.9rem;
+}
+
+.board-display.finished .agent-status {
+  color: #4ec9b0;
+  font-weight: bold;
+}
+
+.board-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  color: #858585;
+}
+
+.board-stats strong {
+  color: #d4d4d4;
+}
+
+.board-grid-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.column-labels {
+  display: flex;
+  gap: 2px;
+  margin-left: 24px;
+}
+
+.corner {
+  width: 24px;
+}
+
+.col-label {
+  width: 24px;
+  text-align: center;
+  color: #858585;
+  font-size: 0.85rem;
+}
+
+.board-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.board-row {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.row-label {
+  width: 24px;
+  text-align: center;
+  color: #858585;
+  font-size: 0.85rem;
+}
+
+.board-cell {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e1e1e;
+  border: 1px solid #3c3c3c;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.board-cell.empty {
+  color: #505050;
+}
+
+.board-cell.miss {
+  color: #858585;
+  background-color: #2d2d30;
+}
+
+.board-cell.hit {
+  color: #f48771;
+  background-color: #3c2a2a;
+}
+
+.board-cell.sunk {
+  color: #505050;
+  background-color: #2d2d30;
+}
+
+.no-board {
+  padding: 2rem;
+  text-align: center;
+  color: #858585;
+}

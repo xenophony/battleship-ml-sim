@@ -1,0 +1,34 @@
+.agent-category {
+  margin-bottom: 2rem;
+}
+
+.category-header {
+  margin-bottom: 1rem;
+}
+
+.category-header h2 {
+  color: #4ec9b0;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+.separator {
+  height: 1px;
+  background: #3c3c3c;
+  margin-bottom: 1rem;
+}
+
+.boards-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .boards-row {
+    grid-template-columns: 1fr;
+  }
+}

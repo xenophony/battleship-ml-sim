@@ -1,0 +1,13 @@
+.game-viewer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: #858585;
+  font-size: 1.2rem;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}

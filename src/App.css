@@ -1,0 +1,65 @@
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+}
+
+.App-header {
+  background-color: #252526;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #3c3c3c;
+}
+
+.App-header h1 {
+  margin: 0 0 1rem 0;
+  font-size: 2rem;
+  color: #4ec9b0;
+  letter-spacing: 2px;
+  font-weight: normal;
+}
+
+.tab-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tab-nav button {
+  background-color: #2d2d30;
+  color: #969696;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 0;
+  transition: all 0.2s ease;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  border-top: 2px solid transparent;
+}
+
+.tab-nav button:hover {
+  background-color: #37373d;
+  color: #d4d4d4;
+}
+
+.tab-nav button.active {
+  background-color: #1e1e1e;
+  color: #4ec9b0;
+  border-top-color: #4ec9b0;
+}
+
+.App-main {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.App-footer {
+  background-color: #252526;
+  padding: 0.5rem;
+  text-align: center;
+  border-top: 1px solid #3c3c3c;
+  color: #858585;
+  font-size: 0.75rem;
+}

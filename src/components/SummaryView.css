@@ -1,0 +1,29 @@
+.summary-view {
+  background-color: #252526;
+  border: 1px solid #3c3c3c;
+  padding: 2rem;
+}
+
+.no-summary {
+  text-align: center;
+  padding: 3rem;
+  color: #858585;
+}
+
+.no-summary p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.summary-content {
+  overflow-x: auto;
+}
+
+.summary-content pre {
+  color: #d4d4d4;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre;
+}
