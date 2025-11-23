@@ -7,7 +7,7 @@ function GameViewer({ gameData, currentTurn, onBoardClick }) {
     return (
       <div className="game-viewer">
         <div className="loading">
-          // waiting for game data...
+          {'//'} waiting for game data...
         </div>
       </div>
     );
