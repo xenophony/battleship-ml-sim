@@ -8,8 +8,9 @@ function AgentCategory({ title, agents, gameData, currentTurn, onBoardClick }) {
 
   return (
     <div className="category-block">
-      <div className="category-header">
-        <span className="comment">// {title}</span>
+     <div className="category-header">
+        {/* Wrap the slashes in quotes inside braces to satisfy the linter */}
+        <span className="comment">{'//'} {title}</span>
       </div>
       
       <div className="boards-container">
