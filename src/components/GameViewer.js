@@ -2,52 +2,33 @@ import React from 'react';
 import './GameViewer.css';
 import AgentCategory from './AgentCategory';
 
-function GameViewer({ gameData, currentTurn }) {
+function GameViewer({ gameData, currentTurn, onBoardClick }) {
   if (!gameData) {
     return (
       <div className="game-viewer">
         <div className="loading">
-          <p>No game data loaded. Please select a game file.</p>
+          // waiting for game data...
         </div>
       </div>
     );
   }
 
-  // Group agents by category
+  // Group agents by category (Same list as before)
   const categories = [
-    {
-      title: 'CLASSIC HEURISTIC',
-      agents: ['RuleBasedAgent', 'HeuristicAgent']
-    },
-    {
-      title: 'TRADITIONAL ML',
-      agents: ['LogisticRegressionAgent', 'HitGradientBoostedAgent', 'LightGBMAgent', 'MLPAgent']
-    },
-    {
-      title: 'ENSEMBLE ML',
-      agents: ['VotingEnsembleAgent', 'StackingEnsembleAgent']
-    },
-    {
-      title: 'REINFORCEMENT LEARNING',
-      agents: ['QLearningAgent', 'SARSAAgent']
-    },
-    {
-      title: 'LARGE LANGUAGE MODELS',
-      agents: []  // Will include all agents not in other categories
-    }
+    { title: 'CLASSIC HEURISTIC', agents: ['RuleBasedAgent', 'HeuristicAgent'] },
+    { title: 'TRADITIONAL ML', agents: ['LogisticRegressionAgent', 'HitGradientBoostedAgent', 'LightGBMAgent', 'MLPAgent'] },
+    { title: 'ENSEMBLE ML', agents: ['VotingEnsembleAgent', 'StackingEnsembleAgent'] },
+    { title: 'REINFORCEMENT LEARNING', agents: ['QLearningAgent', 'SARSAAgent'] },
+    { title: 'LARGE LANGUAGE MODELS', agents: [] } 
   ];
 
-  // Identify which agents belong to which category
   const allAgentNames = Object.keys(gameData);
   const knownAgents = new Set();
   categories.slice(0, -1).forEach(cat => {
     cat.agents.forEach(agent => knownAgents.add(agent));
   });
-
-  // Add remaining agents to LLM category
   categories[4].agents = allAgentNames.filter(name => !knownAgents.has(name));
 
-  // Filter out empty categories
   const activeCategories = categories.filter(cat => 
     cat.agents.some(agentName => gameData[agentName])
   );
@@ -61,6 +42,7 @@ function GameViewer({ gameData, currentTurn }) {
           agents={category.agents}
           gameData={gameData}
           currentTurn={currentTurn}
+          onBoardClick={onBoardClick} // Pass it down
         />
       ))}
     </div>

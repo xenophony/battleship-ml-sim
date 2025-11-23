@@ -1,80 +1,82 @@
 import React from 'react';
 import './BoardDisplay.css';
 
-function BoardDisplay({ agentName, board, turns, hits, isFinished }) {
+function BoardDisplay({ agentName, board, turns, hits, isFinished, onClick, isZoomed }) {
+  
   const renderCell = (cell) => {
     switch (cell) {
-      case '.':
-        return '·';
-      case 'm':
-        return '○';
-      case 'h':
-        return '✖';
-      case 's':
-        return '■';
-      case '_':
-        return '·';
-      default:
-        return cell;
+      case '.': return '·';
+      case '_': return '·';
+      case 'm': return 'm'; 
+      case 'h': return 'h';
+      case 's': return 's';
+      default: return '?';
     }
   };
 
   const getCellClass = (cell) => {
     switch (cell) {
-      case 'm':
-        return 'miss';
-      case 'h':
-        return 'hit';
-      case 's':
-        return 'sunk';
-      default:
-        return 'empty';
+      case 'm': return 'char-miss';
+      case 'h': return 'char-hit';
+      case 's': return 'char-sunk';
+      default: return 'char-empty';
     }
   };
 
-  const efficiency = turns > 0 ? (hits / turns).toFixed(2) : '0.00';
+  const efficiency = turns > 0 ? (hits / turns).toFixed(3) : '0.000';
+
+  // If zoomed, apply a class that scales the font
+  const containerClass = `text-board ${isFinished ? 'finished' : ''} ${isZoomed ? 'zoomed-view' : 'clickable'}`;
 
   return (
-    <div className={`board-display ${isFinished ? 'finished' : ''}`}>
-      <div className="board-header">
-        <div className="agent-name">{agentName}</div>
-        <div className="agent-status">
-          {isFinished ? '✓ DONE' : `Turn ${turns}`}
-        </div>
-      </div>
+    <div className={containerClass} onClick={onClick}>
       
-      <div className="board-stats">
-        <span>Hits: <strong>{hits}</strong></span>
-        <span>Efficiency: <strong>{efficiency}</strong></span>
+      {/* HEADER */}
+      <div className="board-header">
+        <div className="agent-name">&lt; {agentName} &gt;</div>
+        
+        <div className="meta-row">
+           <span className="label">Status:</span> 
+           <span className={isFinished ? "val-done" : "val-active"}>
+             {isFinished ? 'DONE' : 'ACTIVE'}
+           </span>
+           <span className="sep"> | </span>
+           <span className="label">Move #:</span> 
+           <span className="val-num">{String(turns).padEnd(3)}</span>
+        </div>
+
+        <div className="meta-row">
+           <span className="label">Hits:</span> 
+           <span className="val-hit">{String(hits).padEnd(2)}</span>
+           <span className="sep">   | </span>
+           <span className="label">Eff:</span> 
+           <span className="val-eff">{efficiency}</span>
+        </div>
       </div>
 
-      <div className="board-grid-container">
-        <div className="column-labels">
-          <div className="corner"></div>
-          {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].map(label => (
-            <div key={label} className="col-label">{label}</div>
-          ))}
+      {/* GRID */}
+      <div className="text-grid">
+        <div className="grid-line header-line">
+          <span className="gutter"> </span>
+          <span className="row-content">A B C D E F G H I J</span>
         </div>
-        
-        <div className="board-grid">
-          {board.length > 0 ? (
-            board.map((row, rowIdx) => (
-              <div key={rowIdx} className="board-row">
-                <div className="row-label">{rowIdx}</div>
-                {row.map((cell, colIdx) => (
-                  <div
-                    key={colIdx}
-                    className={`board-cell ${getCellClass(cell)}`}
-                  >
-                    {renderCell(cell)}
-                  </div>
+
+        {board.length > 0 ? (
+          board.map((row, rIdx) => (
+            <div key={rIdx} className="grid-line">
+              <span className="gutter">{rIdx}</span>
+              <span className="row-content">
+                {row.map((cell, cIdx) => (
+                  <span key={cIdx} className={getCellClass(cell)}>
+                    {renderCell(cell) + (cIdx < 9 ? ' ' : '')}
+                  </span>
                 ))}
-              </div>
-            ))
-          ) : (
-            <div className="no-board">No board data</div>
-          )}
-        </div>
+              </span>
+            </div>
+          ))
+        ) : (
+          <div className="no-data">NO DATA</div>
+        )}
       </div>
     </div>
   );

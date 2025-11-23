@@ -1,34 +1,45 @@
-.agent-category {
-  margin-bottom: 2rem;
+.category-block {
+  margin-bottom: 3rem;
 }
 
 .category-header {
   margin-bottom: 1rem;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 1.1rem;
+  color: var(--fg-secondary);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
 }
 
-.category-header h2 {
-  color: #4ec9b0;
-  font-size: 1.3rem;
-  margin-bottom: 0.5rem;
-  letter-spacing: 1px;
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+.boards-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0; 
 }
 
-.separator {
-  height: 1px;
-  background: #3c3c3c;
-  margin-bottom: 1rem;
+/* The Vertical Divider (Desktop) */
+.board-divider {
+  color: var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: monospace;
+  line-height: 1.3;
+  user-select: none;
+  font-size: 14px;
+  padding-top: 4rem;
+  margin: 0 1rem;
 }
 
-.boards-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  padding: 0.5rem;
-}
-
+/* MOBILE OVERRIDES */
 @media (max-width: 768px) {
-  .boards-row {
-    grid-template-columns: 1fr;
+  .boards-container {
+    flex-direction: column; /* Stack strictly */
+    width: 100%;
+  }
+
+  .board-divider {
+    display: none; /* Hide vertical pipes on mobile */
   }
 }

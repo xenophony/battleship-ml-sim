@@ -1,109 +1,103 @@
-.controls-container {
-  background-color: #252526;
-  padding: 1.5rem;
+.console-controls {
   margin-bottom: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  border: 1px solid #3c3c3c;
+  /* Matching the Board Font Stack exactly */
   font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  background: #19181A;
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
 }
 
-.game-info {
+.status-line {
+  color: var(--fg-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px dashed #333;
+  padding-bottom: 0.5rem;
+}
+
+.command-line {
   display: flex;
+  gap: 1.5ch;
   align-items: center;
-  gap: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #3c3c3c;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
-.game-info .label {
-  color: #858585;
-  font-size: 0.9rem;
-}
-
-.game-info .value {
-  color: #4ec9b0;
+.prompt {
+  color: var(--color-green);
   font-weight: bold;
-  font-size: 1.1rem;
+  margin-right: 0.5ch;
 }
 
-.game-info select {
-  padding: 0.4rem 0.8rem;
-  background-color: #2d2d30;
-  color: #d4d4d4;
-  border: 1px solid #3c3c3c;
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+.console-controls button {
+  background: none;
+  border: none;
+  color: var(--fg-primary);
+  font-family: inherit; /* Inherits Consolas/Courier */
+  font-size: 1rem;
   cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
 }
 
-.playback-controls {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
+.console-controls button:hover:not(:disabled) {
+  color: var(--color-cyan);
+  text-shadow: 0 0 8px rgba(120, 220, 232, 0.3);
 }
 
-.playback-controls button {
-  background-color: #2d2d30;
-  color: #d4d4d4;
-  border: 1px solid #3c3c3c;
-  padding: 0.75rem 1.25rem;
-  cursor: pointer;
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-}
-
-.playback-controls button:hover:not(:disabled) {
-  background-color: #37373d;
-  border-color: #4ec9b0;
-}
-
-.playback-controls button:disabled {
-  opacity: 0.3;
+.console-controls button:disabled {
+  color: var(--fg-secondary);
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
-.playback-controls button.play-pause {
-  background-color: #2d2d30;
-  color: #4ec9b0;
-  border-color: #4ec9b0;
+.console-controls button.play-btn {
+  color: var(--color-green);
   font-weight: bold;
-  min-width: 120px;
 }
 
-.playback-controls button.play-pause:hover {
-  background-color: #37373d;
+.console-controls button.play-btn.active {
+  color: var(--color-red);
+  animation: pulse 2s infinite;
 }
 
-.turn-slider-container {
-  padding-top: 0.5rem;
+.speed-select {
+  background: #000;
+  color: var(--fg-primary);
+  border: 1px solid var(--border);
+  font-family: inherit; /* Inherits Consolas/Courier */
+  margin-left: auto;
+  cursor: pointer;
 }
 
-.turn-slider {
+.divider-line {
+  color: var(--border);
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.8rem;
+}
+
+.console-slider {
   width: 100%;
-  height: 4px;
-  background: #3c3c3c;
-  outline: none;
-  cursor: pointer;
-  -webkit-appearance: none;
-}
-
-.turn-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
+  height: 2px;
+  background: var(--border);
+  margin-bottom: 1rem;
   appearance: none;
-  width: 16px;
-  height: 16px;
-  background: #4ec9b0;
-  cursor: pointer;
-  border-radius: 50%;
+  outline: none;
 }
 
-.turn-slider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  background: #4ec9b0;
+.console-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 10px;
+  height: 18px;
+  background: var(--color-green);
   cursor: pointer;
-  border-radius: 50%;
-  border: none;
+  border: 1px solid #000;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
 }

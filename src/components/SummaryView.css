@@ -1,29 +1,39 @@
 .summary-view {
-  background-color: #252526;
-  border: 1px solid #3c3c3c;
+  background-color: #1a1a1a;
+  border: 1px solid var(--border);
   padding: 2rem;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .no-summary {
   text-align: center;
   padding: 3rem;
-  color: #858585;
-}
-
-.no-summary p {
-  margin: 0.5rem 0;
-  line-height: 1.6;
+  color: var(--fg-secondary);
 }
 
 .summary-content {
+  background: #151515;
+  padding: 1rem;
+  border-radius: 4px;
+  /* CRITICAL: Allows scrolling if the table is too wide */
   overflow-x: auto;
+  width: 100%;
 }
 
 .summary-content pre {
-  color: #d4d4d4;
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  color: var(--fg-primary);
+  /* CRITICAL: Forces every character to be the same width */
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important; 
+  font-size: 14px;
+  line-height: 1.5;
   margin: 0;
-  white-space: pre;
+  
+  /* CRITICAL: Tells browser 'Do not collapse my spaces' */
+  white-space: pre; 
+  
+  /* Ensures the block takes up space needed */
+  display: inline-block;
+  min-width: 100%;
 }

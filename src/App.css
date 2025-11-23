@@ -2,64 +2,112 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #1e1e1e;
-  color: #d4d4d4;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Mobile Padding Override */
+@media (max-width: 768px) {
+  .App {
+    padding: 10px;
+    overflow-x: hidden;
+  }
 }
 
 .App-header {
-  background-color: #252526;
-  padding: 1.5rem 2rem;
-  border-bottom: 1px solid #3c3c3c;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.App-header h1 {
-  margin: 0 0 1rem 0;
-  font-size: 2rem;
-  color: #4ec9b0;
-  letter-spacing: 2px;
+.brand {
+  font-size: 1rem;
+  color: var(--color-cyan);
   font-weight: normal;
+  letter-spacing: 0.5px;
 }
 
+.brand .prompt {
+  color: var(--color-green);
+  margin-right: 0.5rem;
+}
+
+/* --- MAC TERMINAL TABS --- */
 .tab-nav {
   display: flex;
-  gap: 0.5rem;
+  gap: 2px;
+  border-bottom: 1px solid var(--border);
+  padding: 0 10px;
 }
 
 .tab-nav button {
-  background-color: #2d2d30;
-  color: #969696;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  background: linear-gradient(to bottom, #3E3B3E, #2D2A2E);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  color: var(--fg-secondary);
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 8px 24px;
   cursor: pointer;
-  border-radius: 0;
-  transition: all 0.2s ease;
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-  border-top: 2px solid transparent;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  margin-bottom: -1px; /* Sit exactly on line */
+  position: relative;
+  transition: color 0.2s;
 }
 
 .tab-nav button:hover {
-  background-color: #37373d;
-  color: #d4d4d4;
+  color: var(--fg-primary);
+  background: #454245;
 }
 
 .tab-nav button.active {
-  background-color: #1e1e1e;
-  color: #4ec9b0;
-  border-top-color: #4ec9b0;
+  background: var(--bg-color); /* Match body bg */
+  color: var(--fg-primary);
+  border-color: var(--border);
+  border-bottom: 1px solid var(--bg-color); /* Hide bottom border */
+  z-index: 5;
+  font-weight: bold;
 }
 
-.App-main {
-  flex: 1;
-  padding: 2rem;
-  overflow-y: auto;
+/* --- DASHBOARD LAYOUT --- */
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 3fr 1fr; /* Content : Sidebar */
+  gap: 2rem;
+  align-items: start;
 }
 
-.App-footer {
-  background-color: #252526;
-  padding: 0.5rem;
-  text-align: center;
-  border-top: 1px solid #3c3c3c;
-  color: #858585;
-  font-size: 0.75rem;
+.dashboard-sidebar {
+  order: 2; 
+  position: sticky;
+  top: 20px;
+}
+
+.dashboard-content {
+  order: 1; 
+  min-width: 0;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 1000px) {
+  .dashboard-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Order: Summary First, then Boards (Controls are already at top of DOM) */
+  .dashboard-sidebar {
+    order: 1; 
+    position: relative;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  
+  .dashboard-content {
+    order: 2;
+    width: 100%;
+  }
 }

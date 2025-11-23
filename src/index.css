@@ -1,18 +1,38 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root {
+  /* Monokai Pro (Spectrum) Palette */
+  --bg-color: #221F22;       /* Editor Background */
+  --bg-dark: #19181A;        /* Sidebar/Header Background */
+  --fg-primary: #FCFCFA;     /* Main Text */
+  --fg-secondary: #727072;   /* Comments / Invisibles */
+  
+  --color-red: #FF6188;      /* Hits */
+  --color-orange: #FC9867;   /* Numbers */
+  --color-yellow: #FFD866;   /* Warnings */
+  --color-green: #A9DC76;    /* Strings / Success */
+  --color-purple: #AB9DF2;   /* Sunk */
+  --color-cyan: #78DCE8;     /* Keys / Info */
+  
+  --border: #333033;
 }
 
 body {
   margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--fg-primary);
+  /* The Classic VS Code Font Stack */
   font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #1e1e1e;
-  color: #d4d4d4;
 }
 
-code {
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+::-webkit-scrollbar {
+  width: 12px;
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: #403e41;
+  border: 2px solid var(--bg-color);
+  border-radius: 6px;
 }
