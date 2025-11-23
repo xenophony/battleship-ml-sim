@@ -16,7 +16,7 @@ A React-based web application for viewing and analyzing Battleship AI agent game
 cd react_display
 npm install
 ```
-
+Updating
 ## Running the App
 
 ```bash
