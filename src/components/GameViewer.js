@@ -2,7 +2,7 @@ import React from 'react';
 import './GameViewer.css';
 import AgentCategory from './AgentCategory';
 
-function GameViewer({ gameData, currentTurn, onBoardClick }) {
+function GameViewer({ gameData, currentTurn, onBoardClick, llmMode }) { // <-- ADD llmMode prop
   if (!gameData) {
     return (
       <div className="game-viewer">
@@ -13,13 +13,17 @@ function GameViewer({ gameData, currentTurn, onBoardClick }) {
     );
   }
 
-  // Group agents by category (Same list as before)
+  // Define LLM Agents for filtering
+  const LLM_AGENTS = ['Llama-4-Scout', 'Llama 3.1 8B- FINE-TUNED']; 
+  
+  // Group agents by category 
   const categories = [
-    { title: 'CLASSIC HEURISTIC', agents: ['RuleBasedAgent', 'HeuristicAgent'] },
+     { title: 'LARGE LANGUAGE MODELS', agents: LLM_AGENTS } ,
     { title: 'TRADITIONAL ML', agents: ['LogisticRegressionAgent', 'HitGradientBoostedAgent', 'LightGBMAgent', 'MLPAgent'] },
     { title: 'ENSEMBLE ML', agents: ['VotingEnsembleAgent', 'StackingEnsembleAgent'] },
     { title: 'REINFORCEMENT LEARNING', agents: ['QLearningAgent', 'SARSAAgent'] },
-    { title: 'LARGE LANGUAGE MODELS', agents: [] } 
+    { title: 'CLASSIC HEURISTIC', agents: ['RuleBasedAgent', 'HeuristicAgent', 'EnhancedOptimalAgent'] },
+   
   ];
 
   const allAgentNames = Object.keys(gameData);
@@ -29,9 +33,15 @@ function GameViewer({ gameData, currentTurn, onBoardClick }) {
   });
   categories[4].agents = allAgentNames.filter(name => !knownAgents.has(name));
 
-  const activeCategories = categories.filter(cat => 
+  let activeCategories = categories.filter(cat => 
     cat.agents.some(agentName => gameData[agentName])
   );
+  
+  // Filter logic: In LLM Mode, show ONLY the LLM agents
+  if (llmMode) {
+      activeCategories = activeCategories.filter(cat => cat.title === 'LARGE LANGUAGE MODELS');
+  }
+
 
   return (
     <div className="game-viewer">

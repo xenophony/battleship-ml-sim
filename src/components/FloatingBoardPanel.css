@@ -1,0 +1,148 @@
+.floating-board-panel {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 280px;
+    background-color: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
+}
+
+.floating-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #222;
+    border-bottom: 1px solid #333;
+}
+
+.floating-panel-header .panel-title {
+    color: #00ffaa;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.turn-indicator {
+    background-color: #333;
+    color: #ffcc00;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.floating-board-content {
+    padding: 10px;
+    background-color: #111;
+}
+
+/* Override BoardDisplay styles for compact floating view */
+.floating-board-panel .text-board {
+    font-size: 0.7rem;
+    line-height: 1.1;
+}
+
+.floating-board-panel .board-header {
+    margin-bottom: 6px;
+}
+
+.floating-board-panel .agent-name {
+    font-size: 0.75rem;
+}
+
+.floating-board-panel .meta-row {
+    font-size: 0.65rem;
+}
+
+.floating-move-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: #1e1e2e;
+    border-top: 1px solid #333;
+}
+
+.move-arrow {
+    color: #666;
+}
+
+.move-target {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.move-result-badge {
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.move-result-badge.hit {
+    background-color: #ff6b6b30;
+    color: #ff6b6b;
+    border: 1px solid #ff6b6b50;
+}
+
+.move-result-badge.miss {
+    background-color: #4dabf730;
+    color: #4dabf7;
+    border: 1px solid #4dabf750;
+}
+
+.move-result-badge.sunk {
+    background-color: #ffd43b30;
+    color: #ffd43b;
+    border: 1px solid #ffd43b50;
+}
+
+/* Responsive: On smaller screens, position differently or hide */
+@media (max-width: 1200px) {
+    .floating-board-panel {
+        width: 240px;
+    }
+    
+    .floating-board-panel .text-board {
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 900px) {
+    /* On tablet/small desktop, move to bottom right */
+    .floating-board-panel {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+        width: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* On mobile, don't float - show inline above reasoning */
+    .floating-board-panel {
+        position: relative;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        width: 100%;
+        margin-bottom: 15px;
+        border-radius: 4px;
+    }
+    
+    .floating-board-content {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .floating-board-panel .text-board {
+        font-size: 0.75rem;
+    }
+}

@@ -111,3 +111,18 @@
     width: 100%;
   }
 }
+
+/* --- LLM REASONING TAB LAYOUT --- */
+.llm-reasoning-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 15px;
+}
+
+@media (max-width: 768px) {
+  .llm-reasoning-content {
+    padding: 10px;
+  }
+}
