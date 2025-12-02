@@ -1,0 +1,95 @@
+{
+  "agents": [
+    {
+      "name": "RuleBasedAgent",
+      "type": "heuristic",
+      "description": "A deterministic agent using a hunt-and-target strategy with axis alignment detection.",
+      "model_source": "Code Logic"
+    },
+    {
+      "name": "HeuristicAgent",
+      "type": "heuristic",
+      "description": "A baseline agent that selects moves based on an external probability coverage map.",
+      "model_source": "Code Logic"
+    },
+    {
+      "name": "SmartProbabilityAgent",
+      "type": "heuristic",
+      "description": "An advanced, asynchronous solver attempting to play mathematically optimal Battleship.",
+      "model_source": "Code Logic"
+    },
+    {
+      "name": "LogisticRegressionAgent",
+      "type": "machine learning",
+      "description": "A Scikit-Learn Logistic Regression model trained to predict hit probability based on board features.",
+      "model_source": "ml_models/lr.joblib"
+    },
+    {
+      "name": "HitGradientBoostedAgent",
+      "type": "machine learning",
+      "description": "A HistGradientBoostingClassifier model from Scikit-Learn, optimized for tabular game state features.",
+      "model_source": "ml_models/hgb.joblib"
+    },
+    {
+      "name": "LightGBMAgent",
+      "type": "machine learning",
+      "description": "A highly efficient gradient boosting model (LightGBM) trained on board state features.",
+      "model_source": "ml_models/lgbm.txt"
+    },
+    {
+      "name": "MLPAgent",
+      "type": "deep learning",
+      "description": "A deep neural network (Multi-Layer Perceptron) built with Keras/TensorFlow, using scaled input features.",
+      "model_source": "battleship_mlp/battleship_mlp.h5"
+    },
+    {
+      "name": "MLPAgent_V2",
+      "type": "deep learning",
+      "description": "An iterated version of the MLP agent, trained on a newer dataset or architecture (V2).",
+      "model_source": "battleship_v2/mlp_v2.h5"
+    },
+    {
+      "name": "QLearningAgent",
+      "type": "reinforcement learning",
+      "description": "A Reinforcement Learning agent using a Q-Table to map board states (adjacent hits/misses) to values.",
+      "model_source": "battleship_q/q_table_features.pkl"
+    },
+    {
+      "name": "SARSAAgent",
+      "type": "reinforcement learning",
+      "description": "An on-policy Reinforcement Learning agent using SARSA to learn state-action values.",
+      "model_source": "battleship_sarsa/sarsa_table_features.pkl"
+    },
+    {
+      "name": "Llama-4-Scout-V2",
+      "type": "large language model",
+      "description": "A Smart LLM Agent powered by Meta's Llama-4-Scout model (via OpenRouter), using V2 probability logic.",
+      "model_source": "meta-llama/llama-4-scout"
+    },
+    {
+      "name": "Llama-3.1-FineTuned",
+      "type": "large language model",
+      "description": "A specialized agent running a locally fine-tuned Llama 3.1 8B model, trained specifically on Battleship prompts.",
+      "model_source": "battleship-lora-new (Local Server)"
+    }
+    ,
+    {
+      "name": "Smart-Prob-Algorithm",
+      "type": "heuristic",
+      "description": "An advanced, asynchronous solver attempting to play mathematically optimal Battleship (Smart Probability algorithm).",
+      "model_source": "Code Logic"
+    },
+    {
+      "name": "Llama-4-Scout",
+      "type": "large language model",
+      "description": "A Smart LLM Agent powered by Meta's Llama-4-Scout (OpenRouter) variant, configured for Battleship reasoning.",
+      "model_source": "meta-llama/llama-4-scout"
+    },
+    {
+      "name": "Llama-3.1-Local-Smart",
+      "type": "large language model",
+      "description": "A 4-bit quantized and fine-tuned Llama-3.1 8B model customized for Battleship decision-making and prompt chaining.",
+      "model_source": "battleship-lora-new"
+    }
+  ]
+}

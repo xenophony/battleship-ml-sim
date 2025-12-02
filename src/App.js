@@ -6,12 +6,23 @@ import Controls from './components/Controls';
 import StatsPanel from './components/StatsPanel';
 import ReasoningViewer from './components/ReasoningViewer';
 import LlmAgentSelector from './components/LlmAgentSelector';
+import GameClient from './components/GameClient';
+import LandingPage from './components/LandingPage';
 
 // Available LLM agents
-const LLM_AGENTS = ['Llama-4-Scout', 'Llama 3.1 8B- FINE-TUNED'];
+const LLM_AGENTS = ['Llama-4-Scout', 'Llama-3.1-Local-Smart', 'Claude-Opus-4.5-Frontier'];
+
+// Helper to format agent display names for UI
+const formatAgentName = (name) => {
+  const nameMap = {
+    'Llama-4-Scout': 'Llama-4-Scout - w/ hints',
+    'Llama-3.1-Local-Smart': 'Llama-3.1-8B-Fine-Tuned - w/ hints'
+  };
+  return nameMap[name] || name;
+};
 
 function App() {
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('home');
   const [allGamesData, setAllGamesData] = useState([]);
   const [summaryData, setSummaryData] = useState(null);
   const [currentGameIndex, setCurrentGameIndex] = useState(0);
@@ -39,7 +50,15 @@ function App() {
       // Load manifest (auto-generated at build time)
       const manifestResponse = await fetch(`${process.env.PUBLIC_URL}/assets/manifest.json`);
       if (!manifestResponse.ok) {
-        console.error('No manifest.json found - run build to generate it');
+        // Fallback for dev environment where manifest might not exist yet
+        // Try loading game_data.json directly as a fallback
+        fetch('/game_data.json')
+          .then(res => res.json())
+          .then(data => {
+            setAllGamesData(data.games || []);
+            setSummaryData(data.summary || null);
+          })
+          .catch(e => console.error('No manifest and no game_data.json found'));
         return;
       }
       const manifest = await manifestResponse.json();
@@ -70,7 +89,7 @@ function App() {
         try {
           const summaryResponse = await fetch(`${process.env.PUBLIC_URL}/assets/${manifest.summary}`);
           if (summaryResponse.ok) {
-            const summary = await summaryResponse.text();
+            const summary = await summaryResponse.text(); // or .json() if you updated format
             setSummaryData(summary);
           }
         } catch (e) {
@@ -117,11 +136,10 @@ function App() {
     return () => clearInterval(interval);
   }, [isPlaying, currentTurn, currentGameIndex, allGamesData, playbackSpeed, activeTab]);
 
-  // --- NEW: Auto-play functionality for LLM REASONING TAB ---
-  // Phased approach: prompt (fade in) -> typing (chunk response) -> linger (pause to read) -> next turn
+  // --- Auto-play functionality for LLM REASONING TAB ---
   useEffect(() => {
     let interval;
-    if (llmIsPlaying && activeTab === 'llm_reasoning' && allGamesData.length > 0) {
+    if (llmIsPlaying && activeTab === 'llm' && allGamesData.length > 0) {
       const currentGame = allGamesData[currentGameIndex];
       if (!currentGame) return;
 
@@ -135,33 +153,26 @@ function App() {
       const currentMove = llmAgentData?.move_metadata?.[llmTurnIndex];
       const reasoning = currentMove?.reasoning || '';
       
-      // Calculate reasonable number of chunks (not per-character, but word-ish chunks)
-      // Roughly 1 chunk per 3-6 characters gives a nice flow
       const numChunks = Math.max(1, Math.ceil(reasoning.length / 4));
-      const LINGER_TICKS = 60; // ~3 seconds at 50ms interval
+      const LINGER_TICKS = 60; 
 
       interval = setInterval(() => {
         if (llmPhase === 'prompt') {
-          // Prompt phase: show prompt, then move to typing after a brief moment
-          setLlmChunkIndex(1); // Start showing response
+          setLlmChunkIndex(1); 
           setLlmPhase('typing');
         } else if (llmPhase === 'typing') {
-          // Typing phase: increment chunks with variable speed feel
           setLlmChunkIndex(prev => {
             const next = prev + 1;
             if (next >= numChunks) {
-              // Done typing, start linger phase
               setLlmPhase('linger');
               setLingerCountdown(LINGER_TICKS);
-              return numChunks; // Stay at max
+              return numChunks; 
             }
             return next;
           });
         } else if (llmPhase === 'linger') {
-          // Linger phase: wait for reader to absorb content
           setLingerCountdown(prev => {
             if (prev <= 1) {
-              // Done lingering, advance to next turn
               if (llmTurnIndex < maxLlmTurns - 1) {
                 setLlmTurnIndex(t => t + 1);
                 setLlmChunkIndex(0);
@@ -183,7 +194,6 @@ function App() {
     }
     return () => clearInterval(interval);
   }, [llmIsPlaying, llmTurnIndex, llmChunkIndex, llmPhase, lingerCountdown, currentGameIndex, allGamesData, llmPlaybackSpeed, activeTab, selectedLlmAgent]);
-  // --- END NEW LLM PLAYBACK ---
 
 
   const handleStepForward = () => {
@@ -207,13 +217,39 @@ function App() {
       setCurrentTurn(getMaxTurnsForGame(prevGame.data) - 1);
     }
   };
+  
+  const handleSpeedChange = (speed) => setPlaybackSpeed(speed);
+  const handleTurnChange = (turn) => setCurrentTurn(turn);
+
+  const handleSkipToNextGame = () => {
+    if (currentGameIndex < allGamesData.length - 1) {
+      setCurrentGameIndex(prev => prev + 1);
+      setCurrentTurn(0);
+    }
+  };
+
+  const handleSkipToPrevGame = () => {
+    if (currentGameIndex > 0) {
+      setCurrentGameIndex(prev => prev - 1);
+      setCurrentTurn(0);
+    }
+  };
+
+  const handleBoardClick = (agentName) => {
+    setSelectedAgent(agentName);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedAgent(null);
+  };
 
   const handleLlmNextTurn = () => {
     const currentGame = allGamesData[currentGameIndex];
     if (!currentGame) return;
 
-    const llmAgent = currentGame.data['Llama-4-Scout'] || currentGame.data['Llama 3.1 8B- FINE-TUNED'];
-    const maxLlmTurns = llmAgent?.move_metadata?.length || 0;
+    const llmAgentName = selectedLlmAgent || LLM_AGENTS.find(name => currentGame.data[name]?.move_metadata?.length > 0);
+    const llmAgentData = currentGame.data[llmAgentName];
+    const maxLlmTurns = llmAgentData?.move_metadata?.length || 0;
 
     if (llmTurnIndex < maxLlmTurns - 1) {
         setLlmTurnIndex(prevTurn => prevTurn + 1);
@@ -229,9 +265,6 @@ function App() {
     }
   };
 
-// ... (inside App.js)
-
-  // ... (inside App.js's handleLlmPrevTurn)
   const handleLlmPrevTurn = () => {
     if (llmTurnIndex > 0) {
         setLlmTurnIndex(prevTurn => prevTurn - 1);
@@ -240,11 +273,10 @@ function App() {
     } else if (currentGameIndex > 0) {
         setCurrentGameIndex(prevGame => {
             const prevGameData = allGamesData[prevGame - 1];
-            // Find an LLM agent that exists in the previous game
-            const llmAgent = prevGameData.data['Llama-4-Scout'] || prevGameData.data['Llama 3.1 8B- FINE-TUNED'];
-            const maxLlmTurns = llmAgent?.move_metadata?.length || 0;
+            const llmAgentName = selectedLlmAgent || LLM_AGENTS.find(name => prevGameData.data[name]?.move_metadata?.length > 0);
+            const llmAgentData = prevGameData.data[llmAgentName];
+            const maxLlmTurns = llmAgentData?.move_metadata?.length || 0;
 
-            // Set to the *last* turn of the previous game for LLM mode
             setLlmTurnIndex(maxLlmTurns > 0 ? maxLlmTurns - 1 : 0);
             setLlmChunkIndex(0);
             setLlmPhase('prompt');
@@ -254,27 +286,26 @@ function App() {
   };
 
   const handleLlmTurnChange = (newTurn) => {
-    // Ensure newTurn is within bounds (prevents crashing if manually set too high)
-    const newMaxTurns = llmAgent?.move_metadata?.length || 0;
+    const currentGame = allGamesData[currentGameIndex];
+    const llmAgentName = selectedLlmAgent || LLM_AGENTS.find(name => currentGame?.data[name]?.move_metadata?.length > 0);
+    const llmAgentData = currentGame?.data[llmAgentName];
+    const newMaxTurns = llmAgentData?.move_metadata?.length || 0;
     const safeNewTurn = Math.min(newTurn, newMaxTurns > 0 ? newMaxTurns - 1 : 0);
 
     setLlmTurnIndex(safeNewTurn);
     setLlmChunkIndex(0);
     setLlmPhase('prompt');
   };
-  
-// 1. Define currentGame - This MUST come first among the derived constants.
-  const currentGame = allGamesData[currentGameIndex];
 
-  // 2. Define maxTurns (for Overview tab)
+  // --- DERIVED STATE FOR RENDERING ---
+  const currentGame = allGamesData[currentGameIndex];
   const maxTurns = currentGame ? getMaxTurnsForGame(currentGame.data) : 0;
   
-  // 3. Define LLM related variables (Now correctly accessing currentGame)
-  const llmAgent = currentGame?.data['Llama-4-Scout'] || currentGame?.data['Llama 3.1 8B- FINE-TUNED'];
-  const maxLlmTurns = llmAgent?.move_metadata?.length || 0;
+  const currentLlmAgentName = selectedLlmAgent || (currentGame ? LLM_AGENTS.find(name => currentGame.data[name]?.move_metadata?.length > 0) : null);
+  const currentLlmAgentData = currentLlmAgentName ? currentGame?.data?.[currentLlmAgentName] : null;
+  const maxLlmTurns = currentLlmAgentData?.move_metadata?.length || 0;
   
-  // 4. Safely check bounds for both turns
-  const currentLlmTurn = Math.min(llmTurnIndex, maxLlmTurns > 0 ? maxLlmTurns - 1 : 0);
+  const currentLlmTurn = (llmTurnIndex < maxLlmTurns) ? currentLlmAgentData.move_metadata[llmTurnIndex] : null;
   const currentTurnForOverview = Math.min(currentTurn, maxTurns > 0 ? maxTurns - 1 : 0);
 
   return (
@@ -284,36 +315,38 @@ function App() {
           <span className="prompt">root@battleship:~$</span> ./view_logs
         </div>
         <nav className="tab-nav">
-          <button
-            className={activeTab === 'overview' ? 'active' : ''}
-            onClick={() => setActiveTab('overview')}
-          >
+          <button className={activeTab === 'home' ? 'active' : ''} onClick={() => setActiveTab('home')}>
+            home
+          </button>
+          <button className={activeTab === 'overview' ? 'active' : ''} onClick={() => setActiveTab('overview')}>
             overview
           </button>
-          <button
-            className={activeTab === 'llm_reasoning' ? 'active' : ''}
-            onClick={() => {
-                setActiveTab('llm_reasoning');
-                // Sync turns if possible, otherwise reset to 0
-                setLlmTurnIndex(currentTurnForOverview > 0 ? currentTurnForOverview : 0);
-                setLlmChunkIndex(0);
-            }}
-          >
+          <button className={activeTab === 'llm' ? 'active' : ''} onClick={() => {
+               setActiveTab('llm');
+               // Sync logic if needed
+            }}>
             llm_reasoning
           </button>
-          <button
-            className={activeTab === 'summary' ? 'active' : ''}
-            onClick={() => setActiveTab('summary')}
+          {/* PLAY TAB */}
+          <button 
+            className={activeTab === 'play' ? 'active' : ''} 
+            onClick={() => setActiveTab('play')}
           >
+            play_game
+          </button>
+          <button className={activeTab === 'summary' ? 'active' : ''} onClick={() => setActiveTab('summary')}>
             summary_report
           </button>
         </nav>
       </header>
 
       <main className="App-main">
-        {activeTab === 'overview' && (
+        {activeTab === 'home' && (
+          <LandingPage onNavigate={setActiveTab} />
+        )}
+
+        {activeTab === 'overview' && currentGame && (
           <>
-            {/* CONTROLS (Full Width, Top of Flow) */}
             <Controls
               currentTurn={currentTurnForOverview}
               maxTurns={maxTurns}
@@ -323,28 +356,17 @@ function App() {
               playbackSpeed={playbackSpeed}
               onPlayPause={() => {
                 setIsPlaying(!isPlaying); 
-                setLlmIsPlaying(false); // Pause LLM playback
+                setLlmIsPlaying(false); 
               }}
               onStepForward={handleStepForward}
               onStepBackward={handleStepBackward}
-              onSkipToNextGame={() => {
-                 if (currentGameIndex < allGamesData.length - 1) {
-                   setCurrentGameIndex(p => p + 1); setCurrentTurn(0); setIsPlaying(false);
-                 }
-              }}
-              onSkipToPrevGame={() => {
-                 if (currentGameIndex > 0) {
-                   setCurrentGameIndex(p => p - 1); setCurrentTurn(0); setIsPlaying(false);
-                   const prevGame = allGamesData[currentGameIndex - 1];
-                   setCurrentTurn(getMaxTurnsForGame(prevGame.data) - 1);
-                 }
-              }}
-              onSpeedChange={setPlaybackSpeed}
-              onTurnChange={setCurrentTurn}
+              onSkipToNextGame={handleSkipToNextGame}
+              onSkipToPrevGame={handleSkipToPrevGame}
+              onSpeedChange={handleSpeedChange}
+              onTurnChange={handleTurnChange}
             />
 
             <div className="dashboard-layout">
-              {/* RIGHT SIDEBAR (Summary/Zoom) */}
               <div className="dashboard-sidebar">
                 <StatsPanel 
                   allGamesData={allGamesData}
@@ -356,7 +378,6 @@ function App() {
                 />
               </div>
 
-              {/* MAIN CONTENT (Boards) */}
               <div className="dashboard-content">
                 <GameViewer
                   gameData={currentGame?.data}
@@ -368,38 +389,37 @@ function App() {
           </>
         )}
         
-
-{/* --- NEW LLM REASONING TAB RENDER --- */}
-        {activeTab === 'llm_reasoning' && (
-             <>
+        {/* --- LLM REASONING TAB --- */}
+        {activeTab === 'llm' && currentGame && (
+             <div className="llm-reasoning-content">
+                 {/* REUSED CONTROLS FOR LLM */}
                  <Controls
-                     currentTurn={currentLlmTurn}
+                     currentTurn={llmTurnIndex}
                      maxTurns={maxLlmTurns}
                      currentGameIndex={currentGameIndex}
                      totalGames={allGamesData.length}
                      isPlaying={llmIsPlaying}
                      playbackSpeed={llmPlaybackSpeed}
                      onPlayPause={() => {
-                        setLlmIsPlaying(!llmIsPlaying);
-                        setIsPlaying(false); // Pause Overview playback
+                         setLlmIsPlaying(!llmIsPlaying);
+                         setIsPlaying(false);
                      }}
                      onStepForward={handleLlmNextTurn}
                      onStepBackward={handleLlmPrevTurn}
                      onSkipToNextGame={() => {
-                        if (currentGameIndex < allGamesData.length - 1) {
-                          setCurrentGameIndex(p => p + 1); setLlmTurnIndex(0); setLlmChunkIndex(0); setLlmIsPlaying(false);
-                        }
+                         if (currentGameIndex < allGamesData.length - 1) {
+                            setCurrentGameIndex(p => p + 1); setLlmTurnIndex(0); setLlmChunkIndex(0); setLlmIsPlaying(false);
+                         }
                      }}
                      onSkipToPrevGame={() => {
-                        if (currentGameIndex > 0) {
-                           setCurrentGameIndex(p => p - 1); setLlmTurnIndex(0); setLlmChunkIndex(0); setLlmIsPlaying(false);
-                        }
+                         if (currentGameIndex > 0) {
+                            setCurrentGameIndex(p => p - 1); setLlmTurnIndex(0); setLlmChunkIndex(0); setLlmIsPlaying(false);
+                         }
                      }}
                      onSpeedChange={setLlmPlaybackSpeed}
                      onTurnChange={handleLlmTurnChange}
                  />
                  
-                 {/* LLM Agent Selector Tabs */}
                  <LlmAgentSelector
                      agents={LLM_AGENTS}
                      selectedAgent={selectedLlmAgent || LLM_AGENTS.find(name => currentGame?.data?.[name]?.move_metadata?.length > 0)}
@@ -411,11 +431,10 @@ function App() {
                      gameData={currentGame?.data}
                  />
                  
-                 {/* Full-width Reasoning Viewer with floating board */}
-                 <div className="llm-reasoning-content">
+                 <div className="llm-reasoning-view-container">
                      <ReasoningViewer
                         gameData={currentGame?.data}
-                        currentTurn={currentLlmTurn}
+                        currentTurn={llmTurnIndex}
                         chunkIndex={llmChunkIndex}
                         isPlaying={llmIsPlaying}
                         selectedAgent={selectedLlmAgent}
@@ -424,12 +443,18 @@ function App() {
                         onChunkStep={() => setLlmChunkIndex(p => p + 1)}
                      />
                  </div>
-             </>
+             </div>
         )}
-        {/* --- END LLM REASONING TAB RENDER --- */}
 
         {activeTab === 'summary' && (
           <SummaryView summaryData={summaryData} />
+        )}
+        
+        {/* --- NEW PLAY TAB --- */}
+        {activeTab === 'play' && (
+          <div className="llm-reasoning-content">
+            <GameClient />
+          </div>
         )}
       </main>
     </div>

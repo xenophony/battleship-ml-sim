@@ -1,0 +1,175 @@
+.placement-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: 'Consolas', monospace;
+}
+
+.placement-header h3 {
+  color: var(--color-orange);
+  margin: 0 0 0.5rem 0;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.instruction {
+  color: var(--fg-secondary);
+  font-size: 0.9rem;
+  text-align: center;
+  margin: 0;
+}
+
+/* CONTROLS */
+.placement-controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.rotate-btn {
+  background: var(--bg-dark);
+  color: var(--color-cyan);
+  border: 1px solid var(--border);
+  padding: 0.8rem 1.5rem;
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* TRAY */
+.ship-tray {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.tray-ship {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  min-width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.tray-ship.placed { opacity: 0.4; border-color: transparent; }
+.tray-ship.selected {
+  border-color: var(--color-green);
+  background: #2a2a2a;
+  opacity: 1; 
+}
+
+.ship-name {
+  font-size: 0.75rem;
+  color: var(--fg-secondary);
+  margin-bottom: 4px;
+}
+
+.ship-preview { display: flex; gap: 2px; }
+.preview-cell {
+  width: 12px; height: 12px;
+  background: var(--color-purple);
+  border-radius: 2px;
+}
+
+/* Per-ship preview colors */
+.preview-cell.ship-carrier { background: #FFD866; }
+.preview-cell.ship-battleship { background: #78DCE8; }
+.preview-cell.ship-cruiser { background: #A9DC76; }
+.preview-cell.ship-submarine { background: #AB9DF2; }
+.preview-cell.ship-destroyer { background: #FF8B94; }
+
+/* GRID */
+.placement-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--bg-dark);
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.grid-labels-row { display: flex; gap: 2px; margin-bottom: 2px; }
+.grid-labels-row span { width: 30px; min-width: 30px; text-align: center; color: var(--fg-secondary); font-size: 0.8rem; flex-shrink: 0; }
+.label-corner { width: 20px; min-width: 20px; flex-shrink: 0; }
+
+.grid-row { display: flex; gap: 2px; align-items: center; }
+.row-label { width: 20px; min-width: 20px; text-align: right; margin-right: 4px; color: var(--fg-secondary); font-size: 0.8rem; flex-shrink: 0; }
+
+.grid-cell {
+  width: 30px; height: 30px;
+  min-width: 30px; min-height: 30px;
+  background: #2D2A2E;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.grid-cell.occupied {
+  background: var(--color-purple);
+  border-color: #7e70c2;
+}
+
+/* Per-ship occupied colors */
+.grid-cell.occupied.ship-carrier { background: #FFD866; border-color: #CDAA45; }
+.grid-cell.occupied.ship-battleship { background: #78DCE8; border-color: #4FBCCF; }
+.grid-cell.occupied.ship-cruiser { background: #A9DC76; border-color: #82B85A; }
+.grid-cell.occupied.ship-submarine { background: #AB9DF2; border-color: #8F74D1; }
+.grid-cell.occupied.ship-destroyer { background: #FF8B94; border-color: #D96978; }
+.grid-cell.highlight {
+  background: var(--color-green);
+}
+
+/* FOOTER */
+.confirm-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--color-green);
+  color: var(--bg-color);
+  font-weight: bold;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+.confirm-btn:disabled { background: #444; color: #777; cursor: not-allowed; }
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .placement-container { padding: 0.5rem; }
+  .placement-grid { gap: 1px; padding: 4px; margin: 0 auto; }
+  .grid-cell { width: 24px; height: 24px; min-width: 24px; min-height: 24px; }
+  .grid-labels-row { gap: 1px; justify-content: center; }
+  .grid-labels-row span { width: 24px; min-width: 24px; font-size: 0.7rem; }
+  .row-label { width: 16px; min-width: 16px; font-size: 0.7rem; margin-right: 1px; }
+  .label-corner { width: 16px; min-width: 16px; }
+  .grid-row { gap: 1px; justify-content: center; }
+  .tray-ship { min-width: 50px; padding: 0.2rem; }
+  .ship-name { font-size: 0.65rem; }
+  .preview-cell { width: 8px; height: 8px; }
+  .rotate-btn { padding: 0.5rem 1rem; font-size: 0.85rem; }
+  .confirm-btn { padding: 0.75rem; font-size: 1rem; }
+}
+
+@media (max-width: 380px) {
+  .grid-cell { width: 22px; height: 22px; min-width: 22px; min-height: 22px; }
+  .grid-labels-row span { width: 22px; min-width: 22px; font-size: 0.65rem; }
+  .row-label { width: 14px; min-width: 14px; font-size: 0.65rem; margin-right: 1px; }
+  .label-corner { width: 14px; min-width: 14px; }
+  .tray-ship { min-width: 45px; }
+}

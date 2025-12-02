@@ -14,7 +14,16 @@ function GameViewer({ gameData, currentTurn, onBoardClick, llmMode }) { // <-- A
   }
 
   // Define LLM Agents for filtering
-  const LLM_AGENTS = ['Llama-4-Scout', 'Llama 3.1 8B- FINE-TUNED']; 
+  const LLM_AGENTS = ['Llama-4-Scout', 'Llama-3.1-Local-Smart', 'Claude-Opus-4.5-Frontier'];
+
+// Helper to format agent display names for UI
+const formatAgentName = (name) => {
+  const nameMap = {
+    'Llama-4-Scout': 'Llama-4-Scout - w/ hints',
+    'Llama-3.1-Local-Smart': 'Llama-3.1-8B-Fine-Tuned - w/ hints'
+  };
+  return nameMap[name] || name;
+}; 
   
   // Group agents by category 
   const categories = [
@@ -53,6 +62,7 @@ function GameViewer({ gameData, currentTurn, onBoardClick, llmMode }) { // <-- A
           gameData={gameData}
           currentTurn={currentTurn}
           onBoardClick={onBoardClick} // Pass it down
+          formatAgentName={formatAgentName}
         />
       ))}
     </div>

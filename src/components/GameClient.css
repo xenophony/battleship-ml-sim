@@ -1,0 +1,400 @@
+.new-game-menu {
+  max-width: 400px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: #19181A;
+  border: 1px solid #333;
+  border-radius: 8px;
+  font-family: 'Consolas', monospace;
+}
+
+.new-game-menu h2 {
+  color: #A9DC76; /* Green */
+  margin-top: 0;
+  text-align: center;
+}
+
+.control-group {
+  margin-bottom: 1.5rem;
+}
+
+.control-group label {
+  display: block;
+  color: #727072;
+  margin-bottom: 0.5rem;
+}
+
+.control-group select {
+  width: 100%;
+  padding: 0.5rem;
+  background: #221F22;
+  color: #FCFCFA;
+  border: 1px solid #444;
+  font-family: inherit;
+}
+
+.start-btn {
+  width: 100%;
+  padding: 1rem;
+  background: var(--color-cyan); /* Use app cyan to align with LLM palette */
+  color: #071018;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1.1rem;
+  transition: opacity 0.2s;
+}
+.start-btn:hover { opacity: 0.95; filter: brightness(0.95); }
+.start-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* --- GAME INTERFACE --- */
+.game-interface {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.game-hud {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+  background: #19181A;
+  border-bottom: 1px solid #333;
+  align-items: center;
+  font-family: 'Consolas', monospace;
+  flex-wrap: wrap;
+}
+
+.hud-item .label { color: #727072; font-size: 0.9rem; margin-right: 0.5rem; }
+.hud-item .val { color: #78DCE8; font-weight: bold; font-size: 1.1rem; }
+.hud-item .val-score { color: #A9DC76; font-size: 1.4rem; font-weight: bold; }
+.hud-item .val-score.ai { color: #FF6188; }
+
+.reset-btn {
+  margin-left: auto;
+  padding: 0.4rem 0.8rem;
+  background: transparent;
+  color: #727072;
+  border: 1px solid #444;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.reset-btn:hover {
+  background: var(--color-cyan);
+  color: var(--bg-color);
+  border-color: var(--color-cyan);
+}
+
+/* HUD loader styles */
+.hud-loader {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-left: 1rem;
+  color: #ccc;
+}
+.hud-loader-text { font-size: 0.9rem; color: #cbdfe6; }
+.spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.08);
+  border-top-color: var(--color-cyan);
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Pending cell animation */
+.cell-pending {
+  box-shadow: 0 0 8px rgba(120,220,232,0.25), inset 0 0 6px rgba(120,220,232,0.06);
+  animation: pulse 1s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* Enemy reasoning overlay */
+.enemy-reasoning-overlay {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -8px;
+  pointer-events: none;
+  z-index: 40;
+}
+.enemy-reasoning-bubble {
+  /* Slightly less opaque so board context remains visible, but still legible */
+  background: rgba(6, 12, 16, 0.90);
+  border: 1px solid rgba(78,217,204,0.95);
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.75);
+  max-width: 420px;
+  width: fit-content;
+  font-size: 0.95rem;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  animation: fadeUp 0.25s ease-out;
+  opacity: 0.98;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.enemy-reasoning-bubble .bubble-prefix { color: var(--color-cyan); font-weight: 700; margin-right: 8px; white-space: nowrap; }
+.enemy-reasoning-bubble .bubble-text {
+  color: #ffffff;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.35;
+  max-height: none;
+  overflow: visible;
+  flex: 1;
+}
+
+/* Responsive: make bubble full-width and stack on small screens */
+@media (max-width: 520px) {
+  .enemy-reasoning-overlay {
+    left: 0;
+    right: 0;
+    transform: none;
+    padding: 0 4px;
+  }
+  .enemy-reasoning-bubble {
+    max-width: 100%;
+    width: 100%;
+    font-size: 0.85rem;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 10px;
+  }
+  .enemy-reasoning-bubble .bubble-prefix { margin-right: 0; margin-bottom: 2px; }
+}
+
+@keyframes fadeUp { from { opacity: 0; transform: translate(-50%, 6px) } to { opacity: 1; transform: translate(-50%, 0) } }
+
+.game-boards-layout {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* GRID */
+.game-grid-container {
+  background: #19181A;
+  padding: 1rem;
+  border-radius: 4px;
+  position: relative;
+}
+
+.grid-title {
+  text-align: center;
+  color: #FC9867; /* Orange */
+  margin-bottom: 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.game-grid { display: flex; flex-direction: column; gap: 2px; }
+.grid-row { display: flex; gap: 2px; }
+
+.cell-label {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #727072;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.grid-cell {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
+  background: #2D2A2E;
+  border: 1px solid #333;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.1s;
+  flex-shrink: 0;
+}
+
+.grid-cell:hover:not(:disabled) { background: #444; }
+
+.cell-hit { background: #FF6188 !important; color: white; border-color: #FF6188; }
+.cell-miss { background: #403E41 !important; color: #727072; }
+.cell-unknown { }
+
+/* LOGS */
+.game-logs {
+  flex: 1;
+  min-width: 300px;
+  background: #19181A;
+  border: 1px solid #333;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.log-header {
+  padding: 0.5rem;
+  background: #333;
+  color: #ccc;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.log-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  font-family: 'Consolas', monospace;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.log-entry { margin-bottom: 0.5rem; border-bottom: 1px dashed #333; padding-bottom: 0.2rem; }
+
+/* Fleet Status Sections */
+.fleet-section {
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #333;
+}
+
+.fleet-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.fleet-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  color: #FC9867;
+}
+
+.ship-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ship-status {
+  font-size: 0.85rem;
+  padding: 0.2rem 0;
+}
+
+.ship-status.afloat {
+  color: #A9DC76;
+}
+
+.ship-status.sunk {
+  color: #FF6188;
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+
+.action-log {
+  max-height: 100px;
+  overflow-y: auto;
+  font-size: 0.8rem;
+}
+
+.action-log .log-entry {
+  margin-bottom: 0.3rem;
+  padding-bottom: 0.2rem;
+  color: #999;
+}
+
+.game-over-banner {
+  margin-left: auto;
+  color: #FFD866;
+  font-weight: bold;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.game-over-banner button {
+  background: #444; color: white; border: none; padding: 4px 8px; cursor: pointer;
+}
+
+.grid-cell.readonly {
+  cursor: default;
+  pointer-events: none; /* Prevent clicking */
+}
+
+.cell-ship {
+  background: #AB9DF2 !important; /* Purple for 'Abstract' ships */
+  color: white;
+  border-color: #7e70c2;
+}
+
+.cell-ship.cell-hit {
+  /* When abstract ship is hit */
+  background: #FF6188 !important; 
+  color: white;
+}
+
+/* Per-ship coloring for player's own fleet (matches setup colors) */
+.cell-ship.ship-carrier { background: #FFD866 !important; border-color: #CDAA45; color: #071018; }
+.cell-ship.ship-battleship { background: #78DCE8 !important; border-color: #4FBCCF; color: #071018; }
+.cell-ship.ship-cruiser { background: #A9DC76 !important; border-color: #82B85A; color: #071018; }
+.cell-ship.ship-submarine { background: #AB9DF2 !important; border-color: #8F74D1; color: #071018; }
+.cell-ship.ship-destroyer { background: #FF8B94 !important; border-color: #D96978; color: #071018; }
+
+/* When a specific ship cell is hit, prefer hit styling */
+.cell-ship.ship-carrier.cell-hit,
+.cell-ship.ship-battleship.cell-hit,
+.cell-ship.ship-cruiser.cell-hit,
+.cell-ship.ship-submarine.cell-hit,
+.cell-ship.ship-destroyer.cell-hit {
+  background: #FF6188 !important;
+  border-color: #FF6188 !important;
+  color: white;
+}
+
+/* Responsive scaling for small screens: ensure legend and grid scale together */
+@media (max-width: 640px) {
+  .cell-label { width: 26px; height: 26px; min-width: 26px; min-height: 26px; font-size: 0.8rem; }
+  .grid-cell { width: 26px; height: 26px; min-width: 26px; min-height: 26px; }
+  .grid-title { font-size: 0.9rem; }
+  .game-boards-layout { gap: 1rem; }
+  .game-grid { gap: 1px; }
+  .grid-row { gap: 1px; }
+}
+
+@media (max-width: 480px) {
+  .cell-label { width: 24px; height: 24px; min-width: 24px; min-height: 24px; font-size: 0.75rem; }
+  .grid-cell { width: 24px; height: 24px; min-width: 24px; min-height: 24px; font-size: 0.75rem; }
+  .grid-title { font-size: 0.85rem; }
+  .game-grid { gap: 1px; }
+  .grid-row { gap: 1px; }
+  .game-boards-layout { gap: 0.75rem; }
+  .game-grid-container { padding: 0.5rem; }
+}
+
+@media (max-width: 380px) {
+  .cell-label { width: 22px; height: 22px; min-width: 22px; min-height: 22px; font-size: 0.7rem; }
+  .grid-cell { width: 22px; height: 22px; min-width: 22px; min-height: 22px; font-size: 0.65rem; }
+  .game-grid-container { padding: 0.25rem; }
+}

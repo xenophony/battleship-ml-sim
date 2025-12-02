@@ -1,7 +1,8 @@
 import React from 'react';
 import './BoardDisplay.css';
 
-function BoardDisplay({ agentName, board, turns, hits, isFinished, onClick, isZoomed }) {
+function BoardDisplay({ agentName, board, turns, hits, isFinished, onClick, isZoomed, formatAgentName }) {
+  const displayName = formatAgentName ? formatAgentName(agentName) : agentName;
   
   const renderCell = (cell) => {
     switch (cell) {
@@ -33,7 +34,7 @@ function BoardDisplay({ agentName, board, turns, hits, isFinished, onClick, isZo
       
       {/* HEADER */}
       <div className="board-header">
-        <div className="agent-name">&lt; {agentName} &gt;</div>
+        <div className="agent-name">&lt; {displayName} &gt;</div>
         
         <div className="meta-row">
            <span className="label">Status:</span> 

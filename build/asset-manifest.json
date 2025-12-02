@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/battleship-ml-sim/static/css/main.1a9a9018.css",
-    "main.js": "/battleship-ml-sim/static/js/main.55eb9754.js",
+    "main.css": "/battleship-ml-sim/static/css/main.d7737f31.css",
+    "main.js": "/battleship-ml-sim/static/js/main.513b45b8.js",
     "index.html": "/battleship-ml-sim/index.html",
-    "main.1a9a9018.css.map": "/battleship-ml-sim/static/css/main.1a9a9018.css.map",
-    "main.55eb9754.js.map": "/battleship-ml-sim/static/js/main.55eb9754.js.map"
+    "main.d7737f31.css.map": "/battleship-ml-sim/static/css/main.d7737f31.css.map",
+    "main.513b45b8.js.map": "/battleship-ml-sim/static/js/main.513b45b8.js.map"
   },
   "entrypoints": [
-    "static/css/main.1a9a9018.css",
-    "static/js/main.55eb9754.js"
+    "static/css/main.d7737f31.css",
+    "static/js/main.513b45b8.js"
   ]
 }

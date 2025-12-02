@@ -2,7 +2,7 @@ import React from 'react';
 import './AgentCategory.css';
 import BoardDisplay from './BoardDisplay';
 
-function AgentCategory({ title, agents, gameData, currentTurn, onBoardClick }) {
+function AgentCategory({ title, agents, gameData, currentTurn, onBoardClick, formatAgentName }) {
   const activeAgents = agents.filter(agentName => gameData[agentName]);
   if (activeAgents.length === 0) return null;
 
@@ -35,6 +35,7 @@ function AgentCategory({ title, agents, gameData, currentTurn, onBoardClick }) {
                 hits={currentHits}
                 isFinished={isFinished}
                 onClick={() => onBoardClick(agentName)} // Click Event
+                formatAgentName={formatAgentName}
               />
               
               {idx < activeAgents.length - 1 && (

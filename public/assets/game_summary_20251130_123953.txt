@@ -1,0 +1,230 @@
+================================================================================
+BATTLESHIP AGENT COMPARISON SUMMARY
+Generated: 2025-11-30 12:39:53
+Total Games: 10
+================================================================================
+
+Agent                     Avg Turns    Avg Hits     Avg Efficiency   Best Game    Worst Game   Avg Cost     Total Tokens   
+--------------------------------------------------------------------------------------------------------------------------------------------
+Smart-Prob-Algorithm      45.5         17.0         0.374            35           60           n/a          n/a            
+Llama-4-Scout             47.7         17.0         0.356            36           60           $0.0096      145276         
+Llama-3.1-Local-Smart     49.4         17.0         0.344            39           61           n/a          154354         
+HitGradientBoostedAgent   52.9         17.0         0.321            47           57           n/a          n/a            
+LightGBMAgent             58.8         17.0         0.289            47           77           n/a          n/a            
+MLPAgent                  72.4         17.0         0.235            45           93           n/a          n/a            
+SARSAAgent                79.2         17.0         0.215            60           100          n/a          n/a            
+LogisticRegressionAgent   82.0         17.0         0.207            67           93           n/a          n/a            
+HeuristicAgent            95.6         17.0         0.178            89           100          n/a          n/a            
+RuleBasedAgent            97.3         17.0         0.175            87           100          n/a          n/a            
+QLearningAgent            99.3         17.0         0.171            95           100          n/a          n/a            
+Claude-Opus-4.5-Frontier  101.9        17.0         0.167            90           109          $2.8951      522118         
+
+================================================================================
+DETAILED GAME-BY-GAME RESULTS
+================================================================================
+
+
+Game 1:
+Agent                     Turns      Hits       Efficiency   Cost         Tokens         
+------------------------------------------------------------------------------------------
+Claude-Opus-4.5-Frontier  90         17         0.189        $0.4693      n/a            
+HeuristicAgent            91         17         0.187        n/a          n/a            
+HitGradientBoostedAgent   54         17         0.315        n/a          n/a            
+LightGBMAgent             56         17         0.304        n/a          n/a            
+Llama-3.1-Local-Smart     39         17         0.436        n/a          n/a            
+Llama-4-Scout             39         17         0.436        $0.0013      n/a            
+LogisticRegressionAgent   81         17         0.210        n/a          n/a            
+MLPAgent                  45         17         0.378        n/a          n/a            
+QLearningAgent            99         17         0.172        n/a          n/a            
+RuleBasedAgent            99         17         0.172        n/a          n/a            
+SARSAAgent                66         17         0.258        n/a          n/a            
+Smart-Prob-Algorithm      40         17         0.425        n/a          n/a            
+
+Game 2:
+Agent                     Turns      Hits       Efficiency   Cost         Tokens         
+------------------------------------------------------------------------------------------
+Claude-Opus-4.5-Frontier  101        17         0.168        $0.9914      n/a            
+HeuristicAgent            96         17         0.177        n/a          n/a            
+HitGradientBoostedAgent   56         17         0.304        n/a          n/a            
+LightGBMAgent             47         17         0.362        n/a          n/a            
+Llama-3.1-Local-Smart     54         17         0.315        n/a          n/a            
+Llama-4-Scout             54         17         0.315        $0.0033      n/a            
+LogisticRegressionAgent   67         17         0.254        n/a          n/a            
+MLPAgent                  55         17         0.309        n/a          n/a            
+QLearningAgent            100        17         0.170        n/a          n/a            
+RuleBasedAgent            99         17         0.172        n/a          n/a            
+SARSAAgent                77         17         0.221        n/a          n/a            
+Smart-Prob-Algorithm      47         17         0.362        n/a          n/a            
+
+Game 3:
+Agent                     Turns      Hits       Efficiency   Cost         Tokens         
+------------------------------------------------------------------------------------------
+Claude-Opus-4.5-Frontier  106        17         0.160        $1.5472      n/a            
+HeuristicAgent            89         17         0.191        n/a          n/a            
+HitGradientBoostedAgent   47         17         0.362        n/a          n/a            
+LightGBMAgent             55         17         0.309        n/a          n/a            
+Llama-3.1-Local-Smart     46         17         0.370        n/a          n/a            
+Llama-4-Scout             39         17         0.436        $0.0047      n/a            
+LogisticRegressionAgent   93         17         0.183        n/a          n/a            
+MLPAgent                  82         17         0.207        n/a          n/a            
+QLearningAgent            100        17         0.170        n/a          n/a            
+RuleBasedAgent            95         17         0.179        n/a          n/a            
+SARSAAgent                98         17         0.173        n/a          n/a            
+Smart-Prob-Algorithm      35         17         0.486        n/a          n/a            
+
+Game 4:
+Agent                     Turns      Hits       Efficiency   Cost         Tokens         
+------------------------------------------------------------------------------------------
+Claude-Opus-4.5-Frontier  101        17         0.168        $2.0731      n/a            
+HeuristicAgent            97         17         0.175        n/a          n/a            
+HitGradientBoostedAgent   55         17         0.309        n/a          n/a            
+LightGBMAgent             75         17         0.227        n/a          n/a            
+Llama-3.1-Local-Smart     48         17         0.354        n/a          n/a            
+Llama-4-Scout             47         17         0.362        $0.0063      n/a            
+LogisticRegressionAgent   78         17         0.218        n/a          n/a            
+MLPAgent                  93         17         0.183        n/a          n/a            
+QLearningAgent            100        17         0.170        n/a          n/a            
+RuleBasedAgent            87         17         0.195        n/a          n/a            
+SARSAAgent                100        17         0.170        n/a          n/a            
+Smart-Prob-Algorithm      46         17         0.370        n/a          n/a            
+
+Game 5:
+Agent                     Turns      Hits       Efficiency   Cost         Tokens         
+------------------------------------------------------------------------------------------
+Claude-Opus-4.5-Frontier  101        17         0.168        $2.6154      n/a            
+HeuristicAgent            97         17         0.175        n/a          n/a            
+HitGradientBoostedAgent   53         17         0.321        n/a          n/a            
+LightGBMAgent             77         17         0.221        n/a          n/a            
+Llama-3.1-Local-Smart     61         17         0.279        n/a          n/a            
+Llama-4-Scout             60         17         0.283        $0.0085      n/a            
+LogisticRegressionAgent   80         17         0.212        n/a          n/a            
+MLPAgent                  58         17         0.293        n/a          n/a            
+QLearningAgent            95         17         0.179        n/a          n/a            
+RuleBasedAgent            99         17         0.172        n/a          n/a            
+SARSAAgent                90         17         0.189        n/a          n/a            
+Smart-Prob-Algorithm      60         17         0.283        n/a          n/a            
+
+Game 6:
+Agent                     Turns      Hits       Efficiency   Cost         Tokens         
+------------------------------------------------------------------------------------------
+Claude-Opus-4.5-Frontier  109        17         0.156        $3.1646      n/a            
+HeuristicAgent            95         17         0.179        n/a          n/a            
+HitGradientBoostedAgent   50         17         0.340        n/a          n/a            
+LightGBMAgent             60         17         0.283        n/a          n/a            
+Llama-3.1-Local-Smart     49         17         0.347        n/a          n/a            
+Llama-4-Scout             49         17         0.347        $0.0106      n/a            
+LogisticRegressionAgent   93         17         0.183        n/a          n/a            
+MLPAgent                  79         17         0.215        n/a          n/a            
+QLearningAgent            100        17         0.170        n/a          n/a            
+RuleBasedAgent            100        17         0.170        n/a          n/a            
+SARSAAgent                71         17         0.239        n/a          n/a            
+Smart-Prob-Algorithm      49         17         0.347        n/a          n/a            
+
+Game 7:
+Agent                     Turns      Hits       Efficiency   Cost         Tokens         
+------------------------------------------------------------------------------------------
+Claude-Opus-4.5-Frontier  99         17         0.172        $3.6968      n/a            
+HeuristicAgent            100        17         0.170        n/a          n/a            
+HitGradientBoostedAgent   50         17         0.340        n/a          n/a            
+LightGBMAgent             48         17         0.354        n/a          n/a            
+Llama-3.1-Local-Smart     58         17         0.293        n/a          n/a            
+Llama-4-Scout             58         17         0.293        $0.0126      n/a            
+LogisticRegressionAgent   83         17         0.205        n/a          n/a            
+MLPAgent                  67         17         0.254        n/a          n/a            
+QLearningAgent            100        17         0.170        n/a          n/a            
+RuleBasedAgent            99         17         0.172        n/a          n/a            
+SARSAAgent                81         17         0.210        n/a          n/a            
+Smart-Prob-Algorithm      44         17         0.386        n/a          n/a            
+
+Game 8:
+Agent                     Turns      Hits       Efficiency   Cost         Tokens         
+------------------------------------------------------------------------------------------
+Claude-Opus-4.5-Frontier  102        17         0.167        $4.2412      n/a            
+HeuristicAgent            94         17         0.181        n/a          n/a            
+HitGradientBoostedAgent   56         17         0.304        n/a          n/a            
+LightGBMAgent             53         17         0.321        n/a          n/a            
+Llama-3.1-Local-Smart     47         17         0.362        n/a          n/a            
+Llama-4-Scout             45         17         0.378        $0.0145      n/a            
+LogisticRegressionAgent   86         17         0.198        n/a          n/a            
+MLPAgent                  92         17         0.185        n/a          n/a            
+QLearningAgent            100        17         0.170        n/a          n/a            
+RuleBasedAgent            99         17         0.172        n/a          n/a            
+SARSAAgent                86         17         0.198        n/a          n/a            
+Smart-Prob-Algorithm      47         17         0.362        n/a          n/a            
+
+Game 9:
+Agent                     Turns      Hits       Efficiency   Cost         Tokens         
+------------------------------------------------------------------------------------------
+Claude-Opus-4.5-Frontier  103        17         0.165        $4.7921      n/a            
+HeuristicAgent            100        17         0.170        n/a          n/a            
+HitGradientBoostedAgent   51         17         0.333        n/a          n/a            
+LightGBMAgent             54         17         0.315        n/a          n/a            
+Llama-3.1-Local-Smart     42         17         0.405        n/a          n/a            
+Llama-4-Scout             36         17         0.472        $0.0160      n/a            
+LogisticRegressionAgent   87         17         0.195        n/a          n/a            
+MLPAgent                  66         17         0.258        n/a          n/a            
+QLearningAgent            99         17         0.172        n/a          n/a            
+RuleBasedAgent            96         17         0.177        n/a          n/a            
+SARSAAgent                60         17         0.283        n/a          n/a            
+Smart-Prob-Algorithm      44         17         0.386        n/a          n/a            
+
+Game 10:
+Agent                     Turns      Hits       Efficiency   Cost         Tokens         
+------------------------------------------------------------------------------------------
+Claude-Opus-4.5-Frontier  107        17         0.159        $5.3597      n/a            
+HeuristicAgent            97         17         0.175        n/a          n/a            
+HitGradientBoostedAgent   57         17         0.298        n/a          n/a            
+LightGBMAgent             63         17         0.270        n/a          n/a            
+Llama-3.1-Local-Smart     50         17         0.340        n/a          n/a            
+Llama-4-Scout             50         17         0.340        $0.0178      n/a            
+LogisticRegressionAgent   72         17         0.236        n/a          n/a            
+MLPAgent                  87         17         0.195        n/a          n/a            
+QLearningAgent            100        17         0.170        n/a          n/a            
+RuleBasedAgent            100        17         0.170        n/a          n/a            
+SARSAAgent                63         17         0.270        n/a          n/a            
+Smart-Prob-Algorithm      43         17         0.395        n/a          n/a            
+
+================================================================================
+PERFORMANCE RANKINGS
+================================================================================
+
+By Average Turns (Lower = Better):
+  1. Smart-Prob-Algorithm: 45.5 turns
+  2. Llama-4-Scout: 47.7 turns
+  3. Llama-3.1-Local-Smart: 49.4 turns
+  4. HitGradientBoostedAgent: 52.9 turns
+  5. LightGBMAgent: 58.8 turns
+  6. MLPAgent: 72.4 turns
+  7. SARSAAgent: 79.2 turns
+  8. LogisticRegressionAgent: 82.0 turns
+  9. HeuristicAgent: 95.6 turns
+  10. RuleBasedAgent: 97.3 turns
+  11. QLearningAgent: 99.3 turns
+  12. Claude-Opus-4.5-Frontier: 101.9 turns
+
+By Efficiency (Higher = Better):
+  1. Smart-Prob-Algorithm: 0.374
+  2. Llama-4-Scout: 0.356
+  3. Llama-3.1-Local-Smart: 0.344
+  4. HitGradientBoostedAgent: 0.321
+  5. LightGBMAgent: 0.289
+  6. MLPAgent: 0.235
+  7. SARSAAgent: 0.215
+  8. LogisticRegressionAgent: 0.207
+  9. HeuristicAgent: 0.178
+  10. RuleBasedAgent: 0.175
+  11. QLearningAgent: 0.171
+  12. Claude-Opus-4.5-Frontier: 0.167
+
+================================================================================
+LLM COST SUMMARY
+================================================================================
+
+Llama-4-Scout:
+  Average Cost per Game: $0.0096
+  Total Cost (10 games): $0.0956 (Tokens: 117,246 prompt + 28,030 completion = 145,276 total)
+
+Claude-Opus-4.5-Frontier:
+  Average Cost per Game: $2.8951
+  Total Cost (10 games): $28.9508 (Tokens: 384,664 prompt + 137,454 completion = 522,118 total)
+

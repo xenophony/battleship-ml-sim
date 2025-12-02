@@ -40,6 +40,7 @@
   gap: 2px;
   border-bottom: 1px solid var(--border);
   padding: 0 10px;
+  flex-wrap: wrap;
 }
 
 .tab-nav button {
@@ -56,6 +57,12 @@
   margin-bottom: -1px; /* Sit exactly on line */
   position: relative;
   transition: color 0.2s;
+}
+
+/* Mobile tabs: shrink padding and font */
+@media (max-width: 600px) {
+  .tab-nav { padding: 0 4px; gap: 1px; }
+  .tab-nav button { padding: 6px 10px; font-size: 0.75rem; }
 }
 
 .tab-nav button:hover {

@@ -1,17 +1,15 @@
 {
   "games": [
-    "game_001_boards_20251127_112024.json",
-    "game_002_boards_20251127_112510.json",
-    "game_003_boards_20251127_113143.json",
-    "game_004_boards_20251127_114101.json",
-    "game_005_boards_20251127_114702.json",
-    "game_006_boards_20251127_115651.json",
-    "game_007_boards_20251127_120800.json",
-    "game_008_boards_20251127_122205.json",
-    "game_009_boards_20251127_123139.json",
-    "game_010_boards_20251127_124653.json",
-    "game_011_boards_20251127_125459.json",
-    "game_012_boards_20251127_130245.json"
+    "game_001_boards_20251130_104920.json",
+    "game_002_boards_20251130_105915.json",
+    "game_003_boards_20251130_111007.json",
+    "game_004_boards_20251130_112145.json",
+    "game_005_boards_20251130_113240.json",
+    "game_006_boards_20251130_114347.json",
+    "game_007_boards_20251130_115524.json",
+    "game_008_boards_20251130_120623.json",
+    "game_009_boards_20251130_121723.json",
+    "game_010_boards_20251130_122833.json"
   ],
-  "summary": "game_summary_20251122_195519.txt"
+  "summary": "game_summary_20251130_123953 copy.txt"
 }

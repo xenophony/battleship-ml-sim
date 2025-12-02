@@ -67,7 +67,14 @@ function ReasoningViewer({ gameData, currentTurn, chunkIndex, isPlaying, selecte
     }
 
     // Use selected agent or fall back to first available
-    const LLM_AGENTS = ['Llama-4-Scout', 'Llama 3.1 8B- FINE-TUNED'];
+    const LLM_AGENTS = ['Llama-4-Scout', 'Llama-3.1-Local-Smart'];
+    const formatAgentName = (name) => {
+      const nameMap = {
+        'Llama-4-Scout': 'Llama-4-Scout - w/ hints',
+        'Llama-3.1-Local-Smart': 'Llama-3.1-8B-Fine-Tuned - w/ hints'
+      };
+      return nameMap[name] || name;
+    };
     const activeAgentName = selectedAgent && gameData[selectedAgent]?.move_metadata?.length > currentTurn
         ? selectedAgent
         : LLM_AGENTS.find(name => gameData[name]?.move_metadata?.length > currentTurn);
@@ -115,7 +122,7 @@ function ReasoningViewer({ gameData, currentTurn, chunkIndex, isPlaying, selecte
                 </div>
                 
                 <div className="agent-chat-section">
-                    <div className="agent-name-tag">{activeAgentName}</div>
+                    <div className="agent-name-tag">{formatAgentName(activeAgentName)}</div>
                     
                     {/* Prompt bubble - always visible, re-renders on turn change via key */}
                     <div key={`prompt-${currentTurn}-${activeAgentName}`} className="chat-bubble prompt-bubble animate-fade-up">

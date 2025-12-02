@@ -70,12 +70,15 @@
 .agent-name {
   color: var(--color-cyan);
   font-weight: normal; /* WAS BOLD */
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   margin-bottom: 0.4rem;
   font-family: inherit;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  display: block;
+  /* Allow the agent name to wrap instead of forcing horizontal space */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 12rem; /* constrains width so long names wrap nicely */
 }
 
 .meta-row { color: var(--fg-secondary); font-size: 0.9rem; line-height: 1.4; white-space: pre; }
