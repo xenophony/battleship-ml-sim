@@ -13,13 +13,13 @@ import LandingPage from './components/LandingPage';
 const LLM_AGENTS = ['Llama-4-Scout', 'Llama-3.1-Local-Smart', 'Claude-Opus-4.5-Frontier'];
 
 // Helper to format agent display names for UI
-const formatAgentName = (name) => {
-  const nameMap = {
-    'Llama-4-Scout': 'Llama-4-Scout - w/ hints',
-    'Llama-3.1-Local-Smart': 'Llama-3.1-8B-Fine-Tuned - w/ hints'
-  };
-  return nameMap[name] || name;
-};
+// const formatAgentName = (name) => {
+//   const nameMap = {
+//     'Llama-4-Scout': 'Llama-4-Scout - w/ hints',
+//     'Llama-3.1-Local-Smart': 'Llama-3.1-8B-Fine-Tuned - w/ hints'
+//   };
+//   return nameMap[name] || name;
+// };
 
 function App() {
   const [activeTab, setActiveTab] = useState('home');
@@ -235,13 +235,13 @@ function App() {
     }
   };
 
-  const handleBoardClick = (agentName) => {
-    setSelectedAgent(agentName);
-  };
+  // const handleBoardClick = (agentName) => {
+  //   setSelectedAgent(agentName);
+  // };
 
-  const handleCloseModal = () => {
-    setSelectedAgent(null);
-  };
+  // const handleCloseModal = () => {
+  //   setSelectedAgent(null);
+  // };
 
   const handleLlmNextTurn = () => {
     const currentGame = allGamesData[currentGameIndex];
@@ -305,7 +305,7 @@ function App() {
   const currentLlmAgentData = currentLlmAgentName ? currentGame?.data?.[currentLlmAgentName] : null;
   const maxLlmTurns = currentLlmAgentData?.move_metadata?.length || 0;
   
-  const currentLlmTurn = (llmTurnIndex < maxLlmTurns) ? currentLlmAgentData.move_metadata[llmTurnIndex] : null;
+  // const currentLlmTurn = (llmTurnIndex < maxLlmTurns) ? currentLlmAgentData.move_metadata[llmTurnIndex] : null;
   const currentTurnForOverview = Math.min(currentTurn, maxTurns > 0 ? maxTurns - 1 : 0);
 
   return (

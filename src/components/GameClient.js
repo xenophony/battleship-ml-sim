@@ -119,7 +119,7 @@ function GameClient() {
   
   // Track player's board with their ships and AI shots (Classic mode)
   const [playerBoard, setPlayerBoard] = useState(null);
-  const [playerShipCells, setPlayerShipCells] = useState(new Set());
+//   const [playerShipCells, setPlayerShipCells] = useState(new Set());
   
   // Track player's ships status (for battle log)
   const [playerShips, setPlayerShips] = useState([]);
@@ -230,11 +230,11 @@ function GameClient() {
         });
         
         setPlayerBoard(board);
-        setPlayerShipCells(shipCells);
+        // setPlayerShipCells(shipCells);
         setPlayerShips(shipsWithStatus);
       } else {
         setPlayerBoard(null);
-        setPlayerShipCells(new Set());
+        // setPlayerShipCells(new Set());
         setPlayerShips([]);
       }
       
