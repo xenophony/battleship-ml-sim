@@ -344,7 +344,7 @@ function GameClient() {
       setGameId(null);
       setGameState(null);
       setPlayerBoard(null);
-      setPlayerShipCells(new Set());
+    //   setPlayerShipCells(new Set());
       setPlayerShips([]);
       setAiStats({ hits: 0, misses: 0 });
       // clear any displayed reasoning bubble
